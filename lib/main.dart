@@ -118,7 +118,7 @@ class HttpScreen extends StatelessWidget {
                       children: [
                         Text(
                           post['title'],
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
                             color: Colors.black87,
@@ -127,7 +127,7 @@ class HttpScreen extends StatelessWidget {
                         const SizedBox(height: 8.0),
                         Text(
                           post['body'],
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16.0,
                             color: Colors.black54,
                           ),
@@ -201,7 +201,7 @@ class ChopperScreen extends StatelessWidget {
                       children: [
                         Text(
                           post['title'],
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
                             color: Colors.black87,
@@ -210,7 +210,7 @@ class ChopperScreen extends StatelessWidget {
                         const SizedBox(height: 8.0),
                         Text(
                           post['body'],
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16.0,
                             color: Colors.black54,
                           ),
