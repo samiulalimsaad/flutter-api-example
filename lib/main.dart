@@ -27,6 +27,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Flutter Networking')),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ElevatedButton(
             onPressed: () {
@@ -35,8 +36,14 @@ class HomeScreen extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => HttpScreen()),
               );
             },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue, // Set the button background color
+              foregroundColor: Colors.white, // Set the text color
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            ),
             child: const Text('HTTP Example'),
           ),
+          const SizedBox(height: 16), // Add space between buttons
           ElevatedButton(
             onPressed: () {
               Navigator.push(
@@ -44,6 +51,11 @@ class HomeScreen extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => ChopperScreen()),
               );
             },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.green, // Set the button background color
+              foregroundColor: Colors.white, // Set the text color
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            ),
             child: const Text('Chopper Example'),
           ),
         ],
@@ -88,11 +100,41 @@ class HttpScreen extends StatelessWidget {
           } else {
             final posts = snapshot.data!;
             return ListView.builder(
+              padding: const EdgeInsets.all(8.0),
               itemCount: posts.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(posts[index]['title']),
-                  subtitle: Text(posts[index]['body']),
+                final post = posts[index];
+                return Card(
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 4.0),
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          post['title'],
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        const SizedBox(height: 8.0),
+                        Text(
+                          post['body'],
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.black54,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 );
               },
             );
@@ -141,12 +183,41 @@ class ChopperScreen extends StatelessWidget {
           } else {
             final posts = snapshot.data!;
             return ListView.builder(
+              padding: const EdgeInsets.all(8.0),
               itemCount: posts.length,
               itemBuilder: (context, index) {
                 final post = posts[index];
-                return ListTile(
-                  title: Text(post['title']),
-                  subtitle: Text(post['body']),
+                return Card(
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 4.0),
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          post['title'],
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        const SizedBox(height: 8.0),
+                        Text(
+                          post['body'],
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.black54,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 );
               },
             );
@@ -169,7 +240,10 @@ class CustomJsonConverter extends JsonConverter {
   T _convertJson<T>(dynamic json) {
     if (T == List<Map<String, dynamic>>) {
       return (json as List).map((item) {
-        return {...item as Map<String, dynamic>, 'title': (item['title'] as String).toUpperCase()};
+        return {
+          ...item as Map<String, dynamic>,
+          'title': (item['title'] as String).toUpperCase()
+        };
       }).toList() as T;
     }
     return json as T;
